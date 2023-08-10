@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Dados para o gráfico de barras e linha
+categories = ['2016', '2017', '2018', '2019', '2020']
+bar_values = [95.4, 90.2,85.10, 90.4, 85.1, ]
+line_values = [62.1, 60.4, 55.4, 55.1, 54.1]
+
+# Configuração do gráfico de barras com linha e valores exibidos
+fig, ax1 = plt.subplots()
+
+# Gráfico de barras
+bars = ax1.bar(np.arange(len(categories)), bar_values, label='Barras', color='blue', alpha=0.6)
+
+# Gráfico de linha
+ax2 = ax1.twinx()  # Cria um eixo secundário para a linha
+line, = ax2.plot(np.arange(len(categories)), line_values, color='red', marker='o', label='Linha')
+ax2.set_ylabel('Valores da Linha', color='red')
+
+# Exibição dos valores nas barras
+for bar in bars:
+    height = bar.get_height()
+    ax1.annotate(f'{height}', xy=(bar.get_x() + bar.get_width() / 2, height),
+                 xytext=(0, 3),  # Deslocamento vertical do texto
+                 textcoords='offset points', ha='center', va='bottom', color='black')
+
+# Ajustes nos eixos
+ax1.set_xlabel('Categorias')
+ax1.set_ylabel('Valores das Barras', color='blue')
+ax1.set_title('Gráfico de Barras com Linha e Valores Exibidos')
+ax1.set_xticks(np.arange(len(categories)))
+ax1.set_xticklabels(categories)
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper right')
+
+# Exibição do gráfico
+plt.show()
