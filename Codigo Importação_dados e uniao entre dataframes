@@ -1,0 +1,19 @@
+import pandas as pd
+
+# Importando os DataFrames a partir dos arquivos xlsx
+clientes_df = pd.read_excel('clientes.xlsx')
+compras_df = pd.read_excel('compras.xlsx')
+
+# Exibindo os primeiros registros de cada DataFrame
+print("Clientes DataFrame:")
+print(clientes_df.head())
+
+print("\nCompras DataFrame:")
+print(compras_df.head())
+
+# Usando a função merge para combinar os DataFrames com base no ID do cliente
+merged_table = pd.merge(clientes_df, compras_df, on='cod_uf')
+
+# Exibindo os primeiros registros da nova tabela combinada
+print("\nNova Tabela Combinada:")
+print(merged_table.head())
