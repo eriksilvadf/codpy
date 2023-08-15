@@ -1,0 +1,20 @@
+import pandas as pd
+
+doses = pd.read_excel("doses_aplicadas_2015.xlsx")
+populacao = pd.read_excel("pop_sinasc_2021.xlsx")
+coluna_comum = 'Cod_municipio'
+
+planilha_mesclada = pd.merge(populacao, doses, on=coluna_comum)
+
+
+# Selecionando as colunas desejadas
+colunas = planilha_mesclada[['Cod_municipio', 'Nome_municipio_x', 'menor1ano', 'Dose1']]
+
+# Calculando o percentual entre 'menor1ano' e 'Dose1'
+colunas['percentual'] = (colunas['Dose1'] / colunas['menor1ano']) * 100
+
+# exibindo resultado em percentual com 2 casas decimais
+colunas['percentual'] = colunas['percentual'].apply(lambda x: round(x, 2))
+colunas.to_excel("resultado.xlsx", index=False)
+
+print(colunas)
